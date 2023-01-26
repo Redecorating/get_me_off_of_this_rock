@@ -1,0 +1,1206 @@
+{
+	"Rock0": {
+		"visual": {
+			"colour":[200,200,200]
+		},
+		"title":"Funny shaped rock",
+		"desc":"While traveling, you see a funny shaped rock.",
+		"options": [
+			{
+				"text":"Pick it up",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["item_gain", ["funny_rock"]],
+					["remove"],
+					["chain", "Rock1"]
+				]
+			},
+			{
+				"text":"Don't pick it up",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Rock1": {
+		"title":"Funny shaped rock",
+		"desc":"You pick up the rock. It's fairly hefty. You stow it in your pack.\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Hole0": {
+		"visual": {
+			"colour":[20,20,20]
+		},
+		"title":"Funny shaped hole",
+		"desc":"You find a funny shaped hole.",
+		"options": [
+			{
+				"text":"Put the funny shaped rock in the funny shaped hole.",
+				"reqs":{
+					"items":["funny_rock"]
+					},
+				"outcomes": [
+					["item_lose", ["funny_rock"]],
+					["chain", "Hole1"]
+				]
+			},
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Hole1": {
+		"title":"Funny shaped hole",
+		"desc":"You put the rock into the hole...\n\nNothing happens.\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"Leave the rock in the hole.",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["inc_data", "rocks_in_holes", 1],
+					["chain", "Hole2"]
+				]
+			},
+			{
+				"text":"Take the rock out.",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["item_gain", ["funny_rock"]],
+					["chain", "Hole3"]
+				]
+			}
+		]
+	},
+	"Hole2": {
+		"title":"Funny shaped hole",
+		"desc":"You left the rock in the hole. With immeasurable disappointment, you move on.",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["remove"]
+				]
+			}
+		]
+	},
+	"Hole3": {
+		"title":"Funny shaped hole",
+		"desc":"You take the rock back out of the hole. With immeasurable disappointment, you move on.\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Cave0": {
+		"visual": {
+			"colour":[2,2,2]
+		},
+		"title":"Dark Cave",
+		"desc":"You find a deep dark cave.",
+		"options": [
+			{
+				"text":"Enter the cave",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Cave1"]
+				]
+			},
+			{
+				"text":"Leave",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Cave1": {
+		"title":"Dark Cave",
+		"desc":"You enter the deep dark cave. It is very very dark. If you go any further, you won't be able to see where you are going but you'll still be able to feel the side of the walls",
+		"options": [
+			{
+				"text":"Follow the left wall",
+				"reqs":{
+					"eq": ["self.player.data.get('rocks_in_holes') != 2"]
+				},
+				"outcomes": [
+					["set_data", "cave_side", "left"],
+					["chain", "Cave2"]
+				]
+			},
+			{
+				"text":"Follow the right wall",
+				"reqs":{
+					"eq": ["self.player.data.get('rocks_in_holes') != 2"]
+				},
+				"outcomes": [
+					["set_data", "cave_side", "right"],
+					["chain", "Cave2"]
+				]
+			},
+			{
+				"text":"Use the glowing green goop as a light source",
+				"reqs":{
+					"items": ["glowing_green_goop"],
+					"eq": ["self.player.data.get('rocks_in_holes') != 2"]
+				},
+				"outcomes": [
+					["chain", "Cave2_Goop"]
+				]
+			},
+			{
+				"text":"Follow the left wall",
+				"reqs":{
+					"eq": ["self.player.data.get('rocks_in_holes') == 2"]
+				},
+				"outcomes": [
+					["set_data", "cave_side", "left"],
+					["chain", "Cave2_Unlocked"]
+				]
+			},
+			{
+				"text":"Follow the right wall",
+				"reqs":{
+					"eq": ["self.player.data.get('rocks_in_holes') == 2"]
+				},
+				"outcomes": [
+					["set_data", "cave_side", "right"],
+					["chain", "Cave2_Unlocked"]
+				]
+			},
+			{
+				"text":"Use the glowing green goop as a light source",
+				"reqs":{
+					"items": ["glowing_green_goop"],
+					"eq": ["self.player.data.get('rocks_in_holes') == 2"]
+				},
+				"outcomes": [
+					["chain", "Cave2_Goop_Unlocked"]
+				]
+			},
+			{
+				"text":"Turn back and leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Cave2_Goop": {
+		"title":"Dark Cave",
+		"desc":"You continue down the deep dark cave. With the light from the goop, you can barely see a meter in front of you. The cave turns left, then right, and uphill for a little while.\n\nAfter a few more minutes of walking, the green goop's glow is reflected by a dusty metal door. It looks like it's meant to slide open, and there's a drawing of two strange rocks in holes, but that scribbled art isn't going to open the door for you.",
+		"options": [
+			{
+				"text":"Follow the goop's light back out of the cave and leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Cave2": {
+		"title":"Dark Cave",
+		"desc":"You continue down the deep dark cave, following the {e.player.data[cave_side]} wall. You can't see a thing. The cave turns left, then right, and then it seems to be going uphill for a little while, although you really can't tell given the lack of visual cues.\n\nAfter a few more minutes of walking, you reach a flat solid surface. It seems to be blocking the tunnel, but again, you can't really tell.",
+		"options": [
+			{
+				"text":"Lick the flat wall",
+				"reqs":{},
+				"outcomes": [
+					["set_data", "licked_wall", true],
+					["chain", "Cave_Lick_No_Light"]
+				]
+			},
+			{
+				"text":"Kick the flat wall",
+				"reqs":{},
+				"outcomes": [
+					["set_data", "kicked_wall", true],
+					["chain", "Cave_Kick_No_Light"]
+				]
+			},
+			{
+				"text":"Follow the wall back out of the cave and leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Cave_Lick_No_Light": {
+		"title":"Dark Cave",
+		"desc":"You lick the flat wall. Dirt and dust gets on your tongue, it tastes horrible. Why did you do that??",
+		"options": [
+			{
+				"text":"Kick the flat wall",
+				"reqs":{
+					"eq": [
+						"not self.player.data.get('kicked_wall')"
+					]
+				},
+				"outcomes": [
+					["chain", "Cave_Kick_No_Light"]
+				]
+			},
+			{
+				"text":"Follow the wall back out of the cave and leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Cave_Kick_No_Light": {
+		"title":"Dark Cave",
+		"desc":"You kick the flat wall. The sound echos around the cave. It did feel like the flat wall is meant to move.",
+		"options": [
+			{
+				"text":"Lick the flat wall",
+				"reqs":{
+					"eq": [
+						"not self.player.data.get('licked_wall')"
+					]
+				},
+				"outcomes": [
+					["chain", "Cave_Lick_No_Light"]
+				]
+			},
+			{
+				"text":"Follow the wall back out of the cave and leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Cave2_Goop_Unlocked": {
+		"title":"Dark Cave",
+		"desc":"You continue down the deep dark cave. With the light from the goop, you can barely see a meter in front of you. The cave turns left, then right, and uphill for a little while.\n\nAfter a few more minutes of walking, a beam of light shines to meet your eyes. It's a metal sliding door, just barely ajar. As you peer through the gap, you can see a well lit corridor that turns left after a few meters.",
+		"options": [
+			{
+				"text":"Push the door fully open and explore inside",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter0"]
+				]
+			},
+			{
+				"text":"Follow the goop's light back out of the cave and leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Cave2_Unlocked": {
+		"title":"Dark Cave",
+		"desc":"You continue down the deep dark cave, following the {e.player.data[cave_side]} wall. You can't see a thing. The cave turns left, then right, and then it seems to be going uphill for a little while, although you really can't tell given the lack of visual cues.\n\nAfter a few more minutes of walking, a beam of light shines to meet your eyes. It's a metal sliding door, just barely ajar. As you peer through the gap, you can see a well lit corridor that turns left after a few meters.",
+		"options": [
+			{
+				"text":"Push the door fully open and explore inside",
+				"reqs":{
+					"eq": ["not self.player.data.get('teleport_destination')"]
+				},
+				"outcomes": [
+					["chain", "Teleporter0"]
+				]
+			},
+			{
+				"text":"Push the door fully open and explore inside",
+				"reqs":{
+					"eq": ["self.player.data.get('teleport_destination')"]
+				},
+				"outcomes": [
+					["chain", "Teleporter0_Used"]
+				]
+			},
+			{
+				"text":"Follow the cave's wall back out of the cave and leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Teleporter0": {
+		"title":"Dark Cave",
+		"desc":"You enter the corridor, and follow it left to a room with computer consoles and a circular platform on the floor, with a large glass tube on top of it.",
+		"options": [
+			{
+				"text":"Turn on the consoles",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter1"]
+				]
+			},
+			{
+				"text":"Leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Teleporter0_Used": {
+		"title":"Dark Cave",
+		"desc":"You enter the corridor, and follow it back to the room with the consoles. Most of the consoles are now broken, and the glass tube is cracked. A smell of ozone lingers in the air.",
+		"options": [
+			{
+				"text":"Leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Teleporter1": {
+		"title":"Dark Cave",
+		"desc":"The consoles light up, and humming noises fill the room. After a few moments, one console shows a menu:\n\n\tSelect Destination:\n\t\tE465NN4.a9\n\t\tRJ464NL4.0",
+		"options": [
+			{
+				"text":"Press E465NN4.a9",
+				"reqs":{},
+				"outcomes": [
+					["set_data", "teleport_destination", "E465NN4.a9"],
+					["chain", "Teleporter2.0"]
+				]
+			},
+			{
+				"text":"Press RJ464NL4.0",
+				"reqs":{},
+				"outcomes": [
+					["set_data", "teleport_destination", "RJ464NL4.0"],
+					["chain", "Teleporter2.0"]
+				]
+			},
+			{
+				"text":"Leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Teleporter2.0": {
+		"title":"Dark Cave",
+		"desc":"You select {e.player.data[teleport_destination]} on the console. The whirring noises get louder. A countdown starts on the console you used: 60",
+		"options": [
+			{
+				"text":"Wait for the counter to get lower.",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter2.1"]
+				]
+			},
+			{
+				"text":"Get out of the room... before anything bad happens",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter4"]
+				]
+			}
+		]
+	},
+	"Teleporter2.1": {
+		"title":"Dark Cave",
+		"desc":"The glass tube starts to slowly rise. As it reaches the celing, the counter reaches 40.",
+		"options": [
+			{
+				"text":"Wait for the counter to get lower.",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter2.2"]
+				]
+			},
+			{
+				"text":"Stand under the glass tube",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["set_data", "teleport_in_tube", true],
+					["chain", "Teleporter2.2"]
+				]
+			},
+			{
+				"text":"Get out of the room... before anything bad happens",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter4"]
+				]
+			}
+		]
+	},
+	"Teleporter2.2": {
+		"title":"Dark Cave",
+		"desc":"The humming is getting louder. The counter reaches 25.",
+		"options": [
+			{
+				"text":"Wait for the counter to get lower.",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter2.3"]
+				]
+			},
+			{
+				"text":"Stand under the glass tube",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["set_data", "teleport_in_tube", true],
+					["chain", "Teleporter2.3"]
+				]
+			},
+			{
+				"text":"Move out from under the glass tube",
+				"reqs":{
+					"eq":[
+						"self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["set_data", "teleport_in_tube", false],
+					["chain", "Teleporter2.3"]
+				]
+			},
+			{
+				"text":"Get out of the room... before anything bad happens",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["chain", "Teleporter4"]
+				]
+			}
+		]
+	},
+	"Teleporter2.3": {
+		"title":"Dark Cave",
+		"desc":"As the counter reaches 20, the glass tube shudders, and begins to slowly move down.",
+		"options": [
+			{
+				"text":"Wait for the counter to get lower.",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter2.4"]
+				]
+			},
+			{
+				"text":"Stand under the glass tube",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["set_data", "teleport_in_tube", true],
+					["chain", "Teleporter2.4"]
+				]
+			},
+			{
+				"text":"Move out from under the glass tube",
+				"reqs":{
+					"eq":[
+						"self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["set_data", "teleport_in_tube", false],
+					["chain", "Teleporter2.4"]
+				]
+			},
+			{
+				"text":"Get out of the room... before anything bad happens",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["chain", "Teleporter4"]
+				]
+			}
+		]
+	},
+	"Teleporter2.4": {
+		"title":"Dark Cave",
+		"desc":"The glass tube is halfway down. Soon you won't be able to get in or out. The console displays 15.",
+		"options": [
+			{
+				"text":"Wait for the counter to get lower.",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter2.5"]
+				]
+			},
+			{
+				"text":"Crawl under and into the glass tube",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["set_data", "teleport_in_tube", true],
+					["chain", "Teleporter2.5"]
+				]
+			},
+			{
+				"text":"Crawl out from under the glass tube",
+				"reqs":{
+					"eq":[
+						"self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["set_data", "teleport_in_tube", false],
+					["chain", "Teleporter2.5"]
+				]
+			},
+			{
+				"text":"Get out of the room... before anything bad happens",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["chain", "Teleporter4"]
+				]
+			}
+		]
+	},
+	"Teleporter2.5": {
+		"title":"Dark Cave",
+		"desc":"The tube makes contact with the ground as the console reads 10.",
+		"options": [
+			{
+				"text":"Wait for the counter to get lower.",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter2.6"]
+				]
+			},
+			{
+				"text":"Get out of the room... before anything bad happens",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": []
+			}
+		]
+	},
+	"Teleporter2.6": {
+		"title":"Dark Cave",
+		"desc":"The humming has been getting louder and louder and now you can't hear anything but the drone of unknown technology. The console reads 5.",
+		"options": [
+			{
+				"text":"Wait for the counter to get lower.",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter2.7"]
+				]
+			},
+			{
+				"text":"Run out of the room... before anything bad happens",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["chain", "Teleporter4"]
+				]
+			}
+		]
+	},
+	"Teleporter2.7": {
+		"title":"Dark Cave",
+		"desc":"Your ears are ringing with pain. Your hair is pulled towards the glass tube. The console's count ticks down to 3.",
+		"options": [
+			{
+				"text":"Wait for the counter to get lower.",
+				"reqs":{},
+				"outcomes": [
+					["chain", "Teleporter2.8"]
+				]
+			},
+			{
+				"text":"Sprint out of the room... before anything bad happens",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["chain", "Teleporter4"]
+				]
+			}
+		]
+	},
+	"Teleporter2.8": {
+		"title":"Dark Cave",
+		"desc":"A light forms in the glass tube. It gets brighter. It gets brighter and brighter. It gets brighter until you can't see the yourself, you can't see the glass tube, the room, or the door. The only thing left is the searing white light.",
+		"options": [
+			{
+				"text":"Wait until you can see again.",
+				"reqs":{
+					"eq":[
+						"self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["chain", "Teleporter3"]
+				]
+			},
+			{
+				"text":"Wait until you can see again.",
+				"reqs":{
+					"eq":[
+						"not self.player.data.get('teleport_in_tube')"
+					]},
+				"outcomes": [
+					["chain", "Teleporter2.9"]
+				]
+			}
+		]
+	},
+	"Teleporter2.9": {
+		"title":"Dark Cave",
+		"desc":"You don't know how long you were in that room. You couldn't hear, you couldn't see.\n\nYou open your eyes, which you didn't realise you'd closed. In front of you, the console room's roof stares back at you. You begin to hear sparks from the consoles as your ears stop ringing. You slowly stand up, a little shaky on your feet. You see the glass tube is cracked.",
+		"options": [
+			{
+				"text":"Leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Teleporter3": {
+		"title":"Dark Cave",
+		"desc":"You don't know how long you were in that tube. You couldn't hear, you couldn't see. After a while it felt like you couldn't even feel your own body existing.\n\nYou open your eyes, which you didn't realise you'd closed. In front of you, a starry sky glows. Blades of grass form a cushion below your head.\n\nAs your ears stop ringing, you hear voices shouting \"It was this way!\", \"The BRIGHTEST light I've ever seen!\". Beams of torchlight illuminate the air above where you lie, and as the voices get closer, you realise:\n\n\tYou've finally gotten off of this rock.",
+		"options": [
+			{
+				"text":"New Game",
+				"reqs":{},
+				"outcomes": [
+					["new_game"]
+				]
+			},
+			{
+				"text":"Exit Game",
+				"reqs":{},
+				"outcomes": [
+					["exit_game"]
+				]
+			}
+		]
+	},
+	"Teleporter4": {
+		"title":"Dark Cave",
+		"desc":"You run out of the room, through corridor and cave until you make it to the surface. As you run, the cave is illuminated by an incredible light, and a deafening hum resonates through the cave, untill suddenly there is silence.\n\nYou reach the surface unharmed.",
+		"options": [
+			{
+				"text":"Leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Cave2": {
+		"title":"Dark Cave",
+		"desc":"You continue down the deep dark cave, following the {e.player.data[cave_side]} wall. You can't see a thing. The cave turns left, then right, and then it seems to be going uphill for a little while, although you really can't tell given the lack of visual cues.\n\nAfter a few more minutes of walking, you reach a flat solid surface. It seems to be blocking the tunnel, but again, you can't really tell.",
+		"options": [
+			{
+				"text":"Lick the flat wall",
+				"reqs":{},
+				"outcomes": [
+					["set_data", "licked_wall", true],
+					["chain", "Cave_Lick_No_Light"]
+				]
+			},
+			{
+				"text":"Kick the flat wall",
+				"reqs":{},
+				"outcomes": [
+					["set_data", "kicked_wall", true],
+					["chain", "Cave_Kick_No_Light"]
+				]
+			},
+			{
+				"text":"Follow the wall back out of the cave and leave",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Tree0": {
+		"visual": {
+			"colour":[50,200,20]
+		},
+		"title":"Fruit Tree",
+		"desc":"While traveling, you find a fruit tree.",
+		"options": [
+			{
+				"text":"Pick some fruit",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["resource", "food", 11],
+					["chain", "Tree1"]
+				]
+			},
+			{
+				"text":"Leave the tree alone",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Tree1": {
+		"title":"Fruit Tree",
+		"desc":"You pick 11 fruits and stow them in your pack. You'll be eating well for the next few days.\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Greg0": {
+		"visual": {
+			"colour":[255,180,180]
+		},
+		"title":"Greg the Human",
+		"desc":"While traveling, you find Greg. Greg wants to join your party!.",
+		"options": [
+			{
+				"text":"Let him join",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["add_person", "Greg"],
+					["remove"],
+					["chain", "Greg1"]
+				]
+			},
+			{
+				"text":"Leave",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Greg1": {
+		"title":"Greg the Human",
+		"desc":"Greg joins your party!\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Wolf0": {
+		"title":"Wolves",
+		"desc":"While traveling, a group of wolves attacks!",
+		"options": [
+			{
+				"text":"Fight back!",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["fight"]
+				]
+			}
+		],
+		"entity": {
+			"number": 5,
+			"name_single":"Wolf",
+			"name_plural":"Wolves",
+			"colour": [50,10,10],
+			"movement": 3,
+			"stats": {
+				"hp": 3,
+				"def": 0,
+				"atk": 2
+			},
+			"loot": []
+		}
+	},
+	"Slime0": {
+		"title":"Slime",
+		"desc":"While traveling, a big glowing green slime attacks!",
+		"options": [
+			{
+				"text":"Fight back!",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["fight"]
+				]
+			}
+		],
+		"entity": {
+			"number": 1,
+			"name_single":"Slime",
+			"name_plural":"Slime",
+			"colour": [100,200,100],
+			"movement": 5,
+			"stats": {
+				"hp": 10,
+				"def": 0.1,
+				"atk": 1
+			},
+			"loot": ["glowing_green_goop"]
+		}
+	},
+	"Intro0": {
+		"title":"Controls",
+		"desc":"Use QWEASD keys to move on the map.\n\nQ: Left Up, W: Up, E: Right Up\nA: Left Down, S: Down, D: Right Down\n\nPress I to view your inventory, and I or ESCAPE to close it.\n\nWhen presented with an Event, use the number (1234 etc) keys to select an option.\n\nUse the H key to view these instructions again.",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+				]
+			}
+		]
+	},
+	"Intro1": {
+		"title":"Stuck on a Rock",
+		"desc":"While traveling between star systems, your spaceship crashed on this barren backwater planet. Is there any hope of getting off of this rock?\n\nYour crew (Two rectangles called Greeg and Grank) will have to fight native creatures, explore the map, and find a source of food to survive long enough to find a way off this rock.\n\nPress `1` to continue.",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["chain", "Wreck0"],
+					["chain", "Intro0"]
+				]
+			}
+		]
+	},
+	"Death0": {
+		"title":"Game Over",
+		"desc":"All your people are dead.",
+		"options": [
+			{
+				"text":"New Game",
+				"reqs":{},
+				"outcomes": [
+					["new_game"]
+				]
+			},
+			{
+				"text":"Exit Game",
+				"reqs":{},
+				"outcomes": [
+					["exit_game"]
+				]
+			}
+		]
+	},
+	"Menu0": {
+		"title":"Get Me Off of this Rock!",
+		"desc":"No savefile was found.",
+		"options": [
+			{
+				"text":"New Game",
+				"reqs":{},
+				"outcomes": [
+					["new_game"]
+				]
+			},
+			{
+				"text":"Exit Game",
+				"reqs":{},
+				"outcomes": [
+					["exit_game"]
+				]
+			}
+		]
+	},
+	"Menu1": {
+		"title":"Get Me Off of this Rock!",
+		"desc":"A savefile was found.",
+		"options": [
+			{
+				"text":"Continue Game",
+				"reqs":{},
+				"outcomes": [
+					["continue_game"]
+				]
+			},
+			{
+				"text":"New Game",
+				"reqs":{},
+				"outcomes": [
+					["new_game"]
+				]
+			},
+			{
+				"text":"Exit Game",
+				"reqs":{},
+				"outcomes": [
+					["exit_game"]
+				]
+			}
+		]
+	},
+	"Ship0": {
+		"visual": {
+			"colour":[150,150,250]
+		},
+		"title":"Abandoned Spaceship",
+		"desc":"You find an abandoned spaceship, this could be your chance to finally get off this rock!",
+		"options": [
+			{
+				"text":"Investigate the spaceship",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["chain", "Ship1"]
+				]
+			},
+			{
+				"text":"Leave",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+				]
+			}
+		]
+	},
+	"Ship1": {
+		"title":"Abandoned Spaceship",
+		"desc":"You enter the spaceship. Inside its dusty and rusty, but nothing is obviously broken.\n\nYou move to the console, and notice a flashing fuel symbol. The ship is out of gas!",
+		"options": [
+			{
+				"text":"Pour the glowing green goop into the fuel tank.",
+				"reqs":{
+					"items":["glowing_green_goop"]
+					},
+				"outcomes": [
+					["chain", "Ship2"],
+					["item_lose", ["glowing_green_goop"]]
+				]
+			},
+			{
+				"text":"Leave",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Ship2": {
+		"title":"Abandoned Spaceship",
+		"desc":"You pour the goop in, startup the ship, fly away and finally get off this rock!\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"New Game",
+				"reqs":{},
+				"outcomes": [
+					["new_game"]
+				]
+			},
+			{
+				"text":"Exit Game",
+				"reqs":{},
+				"outcomes": [
+					["exit_game"]
+				]
+			}
+		]
+	},
+	"Wreck0": {
+		"visual": {
+			"colour":[110,130,200]
+		},
+		"title":"Shipwreck",
+		"desc":"Your old ship... well it won't be flying anytime soon. It doesn't look like it's in any shape to be repaired either. You'll have to find another way to get off of this rock.",
+		"options": [
+			{
+				"text":"Leave",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Goop0": {
+		"visual": {
+			"colour":[200,255,200]
+		},
+		"title":"Glowing Green Goop",
+		"desc":"While traveling, you see some glowing green goop.",
+		"options": [
+			{
+				"text":"Pick it up",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["item_gain", ["glowing_green_goop"]],
+					["remove"],
+					["chain", "Goop1"]
+				]
+			},
+			{
+				"text":"Don't pick it up",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Goop1": {
+		"title":"Glowing Green Goop",
+		"desc":"You pick up the goop. It stinks and you feel a little light headed. You stow it in your pack.\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Hunger0": {
+		"title":"Hunger",
+		"desc":"You're running low on food. With about 10 days worth left, you'll need to find a source of more food within 10 moves or your party members will start starving to death. Press `I` to view how much food you have.",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Hunger1": {
+		"title":"Starvation",
+		"desc":"You've run out of food! Your party members won't last long if you don't find food quick!",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": []
+			}
+		]
+	},
+	"Battle0": {
+		"title":"Fight Outcome",
+		"desc":"Your party fights the {e.player.data[enemy].name}.\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"Keep Fighting",
+				"reqs":{
+					},
+				"outcomes": [
+					["clear_summary"],
+					["__fight"]
+				]
+			},
+			{
+				"text":"Run Away",
+				"reqs":{
+					"player_attr": ["last_move"]
+					},
+				"outcomes": [
+					["move_back"]
+				]
+			}
+		]
+	},
+	"Battle1": {
+		"title":"Fight Outcome",
+		"desc":"Your party defeated the {e.player.data[enemy].name}!\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"Continue",
+				"reqs":{},
+				"outcomes": []
+			}
+		]
+	},
+	"Battle2": {
+		"title":"Fight Outcome",
+		"desc":"Your party was defeated by the {e.player.data[enemy].name}!\n\n{e.player.data[summary]}",
+		"options": [
+			{
+				"text":"Exit Game",
+				"reqs":{},
+				"outcomes": [
+					["exit_game"]
+				]
+			}
+		]
+	},
+	"Heal0": {
+		"title":"Healing",
+		"desc":"Select a party member to heal. You have {e.player.resources[medication]} medicine left.",
+		"options": [
+			{
+				"repeat": "per_personnel",
+				"text":"Heal {person.name} ({person.hp} HP)",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["heal"],
+					["repeat"]
+				]
+			},
+			{
+				"text": "Back to Inventory",
+				"reqs":{
+					"items":[]
+					},
+				"outcomes": [
+					["inventory"]
+				]
+			}
+		]
+	}
+}
